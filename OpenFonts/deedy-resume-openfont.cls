@@ -1,84 +1,218 @@
-% Intro Options
-\ProvidesClass{deedy-resume-openfont}[2014/04/30 CV class]
-\NeedsTeXFormat{LaTeX2e}
-\DeclareOption{print}{\def\@cv@print{}}
-\DeclareOption*{%
-  \PassOptionsToClass{\CurrentOption}{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Deedy - One Page Two Column Resume
+% LaTeX Template
+% Version 1.2 (16/9/2014)
+%
+% Original author:
+% Debarghya Das (http://debarghyadas.com)
+%
+% Original repository:
+% https://github.com/deedydas/Deedy-Resume
+%
+% IMPORTANT: THIS TEMPLATE NEEDS TO BE COMPILED WITH XeLaTeX
+%
+% This template uses several fonts not included with Windows/Linux by
+% default. If you get compilation errors saying a font is missing, find the line
+% on which the font is used and either change it to a font included with your
+% operating system or comment the line out to use the default font.
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+% TODO:
+% 1. Integrate biber/bibtex for article citation under publications.
+% 2. Figure out a smoother way for the document to flow onto the next page.
+% 3. Add styling information for a "Projects/Hacks" section.
+% 4. Add location/address information
+% 5. Merge OpenFont and MacFonts as a single sty with options.
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% CHANGELOG:
+% v1.1:
+% 1. Fixed several compilation bugs with \renewcommand
+% 2. Got Open-source fonts (Windows/Linux support)
+% 3. Added Last Updated
+% 4. Move Title styling into .sty
+% 5. Commented .sty file.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Known Issues:
+% 1. Overflows onto second page if any column's contents are more than the
+% vertical limit
+% 2. Hacky space on the first bullet point on the second column.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\documentclass[]{deedy-resume-openfont}
+\usepackage{fancyhdr}
+ 
+\pagestyle{fancy}
+\fancyhf{}
+ 
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%     LAST UPDATED DATE
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\lastupdated
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%     TITLE NAME
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\namesection{Tony}{Cook}{ \urlstyle{same}\href{https://github.com/tony-cook}{github.com/tony-cook }| \href{https://www.linkedin.com/in/tony-software-development/}{linkedin.com/in/tony-software-development}\\
+\href{mailto:tonycook@outlook.co.nz}{tonycook@outlook.co.nz} | 022.3183073 | \href{mailto:tonyc@missionreadyhq.com}{tonyc@missionreadyhq.com}
 }
-\ProcessOptions\relax
-\LoadClass{article}
 
-% Package Imports
-\usepackage[hmargin=1.25cm, vmargin=0.75cm]{geometry}
-\usepackage[hidelinks]{hyperref}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%     COLUMN ONE
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% Publications
-\usepackage{cite}
-\renewcommand\refname{\vskip -1.5cm}
+\begin{minipage}[t]{3.2in} 
 
-% Color definitions
-\usepackage[usenames,dvipsnames]{xcolor} 
-\definecolor{date}{HTML}{666666} 
-\definecolor{primary}{HTML}{2b2b2b} 
-\definecolor{headings}{HTML}{6A6A6A}
-\definecolor{subheadings}{HTML}{333333}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%     EDUCATION
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% Set main fonts
-\usepackage{fontspec}
-\setmainfont[Color=primary, Path = fonts/lato/,BoldItalicFont=Lato-RegIta,BoldFont=Lato-Reg,ItalicFont=Lato-LigIta]{Lato-Lig}
-\setsansfont[Scale=MatchLowercase,Mapping=tex-text, Path = fonts/raleway/]{Raleway-ExtraLight}
+\section{Education} 
 
-% Date command
-\usepackage[absolute]{textpos}
-\usepackage[UKenglish]{isodate}
-\setlength{\TPHorizModule}{1mm}
-\setlength{\TPVertModule}{1mm}
-\newcommand{\lastupdated}{\begin{textblock}{60}(155,5)
-\color{date}\fontspec[Path = fonts/raleway/]{Raleway-ExtraLight}\fontsize{8pt}{10pt}\selectfont 
-Last Updated on \today
-\end{textblock}}
+\subsection{Mission Ready HQ}
+\descript{Software Development}
+\location{Graduated: April 2022}
+Curriculum: Full Stack JavaScript, Cloud services, DevOps as well as agile mindsets and practices \\
+\sectionsep
 
-% Name command
-\newcommand{\namesection}[3]{
-\centering{
-\fontsize{40pt}{60pt}
-\fontspec[Path = fonts/lato/]{Lato-Hai}\selectfont #1 
-\fontspec[Path = fonts/lato/]{Lato-Lig}\selectfont #2
-} \\[5pt]
-\centering{
-\color{headings}
-\fontspec[Path = fonts/raleway/]{Raleway-Medium}\fontsize{11pt}{14pt}\selectfont #3}
-\noindent\makebox[\linewidth]{\color{headings}\rule{\paperwidth}{0.4pt}}
-\vspace{-15pt}
-}
+\subsection{AUT University}
+\descript{Bachelor of Business}
+\location{Graduated: December 2013}
+Major: Finance \& Economics \textbullet{}Minor: International Business \\
+Elective Coursework:\\
+\vspace{\topsep} % Hacky fix for awkward extra vertical space
+\begin{tightemize}
+\item Entrepreneurship \\
+\item International Transport and Logistics \\
+\end{tightemize}
+\sectionsep
 
-% Section seperators 
-\usepackage{titlesec}
-\titlespacing{\section}{0pt}{0pt}{0pt} 
-\titlespacing{\subsection}{0pt}{0pt}{0pt}
-\newcommand{\sectionsep}{\vspace{8pt}}
+\subsection{University of North Florida}
+\descript{International Student Exchange}
+\location{Graduated: December 2011}
+\sectionsep
 
-% Headings command
-\titleformat{\section}{\color{headings}
-\scshape\fontspec[Path = fonts/lato/]{Lato-Lig}\fontsize{16pt}{24pt}\selectfont \raggedright\uppercase}{}{0em}{}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%     SKILLS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% Subeadings command
-\titleformat{\subsection}{
-\color{subheadings}\fontspec[Path = fonts/lato/]{Lato-Bol}\fontsize{12pt}{12pt}\selectfont\bfseries\uppercase}{}{0em}{}
+\section{Skills}
+\subsection{Technical Skills}
+Proficient with: \\
+JavaScript (ES6) \textbullet{} React/Redux \textbullet{} Material UI \\  Node.js \textbullet{} MySQL \textbullet{} MongoDB \textbullet{} HTML5 \textbullet{} CSS3 \\
+Shell \textbullet{} Git \textbullet{} Linux \textbullet{} Cloud services \textbullet JSON \\ 
+DevOps \textbullet Agile (Scrum) 
+\sectionsep
 
-\newcommand{\runsubsection}[1]{
-\color{subheadings}\fontspec[Path = fonts/lato/]{Lato-Bol}\fontsize{12pt}{12pt}\selectfont\bfseries\uppercase {#1} \normalfont}
+\subsection{Soft Skills}
+Outstanding: \\
+Critical Thinking \textbullet{} Presentation skills \\
+Collaboration\textbullet{} Problem Solving   \\
+Research \textbullet{} Business Knowledge  \\
+\sectionsep
 
-% Descriptors command
-\newcommand{\descript}[1]{
-\color{subheadings}\raggedright\scshape\fontspec[Path = fonts/raleway/]{Raleway-Medium}\fontsize{11pt}{13pt}\selectfont {#1 \\} \normalfont}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%     AWARDS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% Location command
-\newcommand{\location}[1]{
-\color{headings}\raggedright\fontspec[Path = fonts/raleway/]{Raleway-Medium}\fontsize{10pt}{12pt}\selectfont {#1\\} \normalfont}
+\section{Awards} 
+\begin{tabular}{rll}
+2009	     & AUT Maori Business Scholarship  \\
+2021	     & MPTT Scholarship  \\
 
-% Bullet Lists with fewer gaps command
-\newenvironment{tightemize}{
-\vspace{-\topsep}\begin{itemize}\itemsep1pt \parskip0pt \parsep0pt}
-{\end{itemize}\vspace{-\topsep}}
+\end{tabular}
+\sectionsep
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%     COLUMN TWO
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\end{minipage} 
+\hfill
+\begin{minipage}[t]{4in} 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%     TECHNICAL PROJECTS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Technical Projects}
+\runsubsection{Property Management Website}
+\descript{| Github}
+\location{March 2022}
+\vspace{\topsep} % Hacky fix for awkward extra vertical space
+\begin{tightemize}
+\item Built and deployed a full stack multi-layer container with React/Redux and Node.js
+\item Worked alongside UX/UI designers during the design process while also implementing agile practices
+\item Implemented CI/CD pipline with AWS cloud
+\item Conceptualized and implemented a MongoDB cloud database connecting to the application
+\end{tightemize}
+\sectionsep
+
+\runsubsection{Early Learning Application} \\
+\descript{| Github(frontend), Github (backend)}
+\location{December 2021}
+\vspace{\topsep}
+\begin{tightemize}
+\item Built a front end single-page application with React/Redux and back end with Node.js for early learning \\
+\item Extensive user interface(UI) development with Material UI and CSS5
+\item Collaborated using Git with a team of full stack developers
+\end{tightemize}
+\sectionsep
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%     EXPERIENCE
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Experience}
+
+\runsubsection{Dangerous Goods Management}
+\descript{| Operations Coordinator}
+\location{June 2017 – February 2019}
+\begin{tightemize}
+\item Built and maintained effective relationships with customers, suppliers and freight forwarders
+\item Maintained stock management system for accuracy and future planning of storage capacity
+\item Attended training courses related to dangerous goods training and certification
+\end{tightemize}
+\sectionsep
+
+\runsubsection{Waipareira Trust}
+\descript{| Data Assistant  }
+\location{June 2013 - November 2013}
+\vspace{\topsep} % Hacky fix for awkward extra vertical space
+\begin{tightemize}
+\item Assisted with collecting, interpreting, and compiling data
+\item Provided software training including one-to-one and assisted with larger group training.
+\item Assisted other business units with interpreting and compiling data
+\end{tightemize}
+\sectionsep
+
+\runsubsection{2Degrees Mobile }
+\descript{| Finance Assistant }
+\location{November 2012 – February 2013}
+\begin{tightemize}
+\item Prepared reports for inclusion in monthly, quarterly and annual internal audit reports
+\item Processed monthly bills and sent to customers for payment
+\end{tightemize}
+\sectionsep
+
+
+
+
+\end{minipage} 
+\end{document}  \documentclass[]{article}
